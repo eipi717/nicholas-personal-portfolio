@@ -1,7 +1,7 @@
 "use client";
 
 import { useMode } from "@/context/ModeContext";
-import { personal, personas, experiences, projects } from "@/data/site";
+import { personal, personas, experiences, projects, type PersonaKey } from "@/data/site";
 import { getAppearanceStyles, getThemeStyles } from "@/lib/theme";
 import clsx from "clsx";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -13,7 +13,7 @@ export default function Home() {
   const themeClasses = getThemeStyles(theme);
   const appearanceClasses = getAppearanceStyles(appearance);
   const persona = personas[mode];
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const focusRing = clsx(
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
     themeClasses.focusRing,
@@ -76,8 +76,8 @@ function Hero({
   shouldReduceMotion,
   focusRing,
 }: {
-  mode: "dev" | "it";
-  persona: (typeof personas)["dev"];
+  mode: PersonaKey;
+  persona: (typeof personas)[PersonaKey];
   themeClasses: ReturnType<typeof getThemeStyles>;
   appearanceClasses: ReturnType<typeof getAppearanceStyles>;
   shouldReduceMotion: boolean;
@@ -212,7 +212,7 @@ function QuickLinks({
   appearanceClasses,
   focusRing,
 }: {
-  mode: "dev" | "it";
+  mode: PersonaKey;
   themeClasses: ReturnType<typeof getThemeStyles>;
   appearanceClasses: ReturnType<typeof getAppearanceStyles>;
   focusRing: string;
@@ -268,7 +268,7 @@ function Snapshot({
   appearanceClasses,
   focusRing,
 }: {
-  mode: "dev" | "it";
+  mode: PersonaKey;
   themeClasses: ReturnType<typeof getThemeStyles>;
   appearanceClasses: ReturnType<typeof getAppearanceStyles>;
   focusRing: string;
