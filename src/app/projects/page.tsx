@@ -21,6 +21,7 @@ export default function ProjectsPage() {
     appearance === "light" ? "focus-visible:ring-offset-white" : "focus-visible:ring-offset-slate-950"
   );
   const filtered = projects.filter((project) => project.category === mode);
+  const projectsPending = true;
 
   if (mode !== "dev") {
     return (
@@ -61,6 +62,30 @@ export default function ProjectsPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (projectsPending) {
+    return (
+      <div className={clsx("w-full", appearanceClasses.page)}>
+        <div className="min-h-screen max-w-4xl mx-auto px-6 py-12 space-y-10">
+          <header className="space-y-3">
+            <p className={clsx("uppercase tracking-[0.25em] text-sm", appearanceClasses.muted)}>Projects</p>
+            <h1 className={clsx("text-4xl font-bold", appearanceClasses.strong)}>To be confirmed</h1>
+            <p className={clsx("text-lg", appearanceClasses.muted)}>
+              Project details will be shared once the final list is confirmed.
+            </p>
+          </header>
+          <NextSteps
+            title="Need something similar?"
+            description="Review services or start a conversation about your project."
+            links={[
+              { href: "/services", label: "See services", variant: "primary" },
+              { href: "/contact", label: "Start a conversation" },
+            ]}
+          />
         </div>
       </div>
     );

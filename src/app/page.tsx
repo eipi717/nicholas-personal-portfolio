@@ -1,7 +1,7 @@
 "use client";
 
 import { useMode } from "@/context/ModeContext";
-import { personal, personas, experiences, projects, type PersonaKey } from "@/data/site";
+import { personal, personas, experiences, type PersonaKey } from "@/data/site";
 import { getAppearanceStyles, getThemeStyles } from "@/lib/theme";
 import clsx from "clsx";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -155,19 +155,16 @@ function Hero({
               <ExternalLink size={16} />
             </Link>
             {mode === "dev" ? (
-              <Link
-                href="/projects"
+              <div
                 className={clsx(
-                  "px-5 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 border w-full sm:w-auto text-sm sm:text-base",
+                  "px-5 py-3 rounded-lg font-semibold inline-flex items-center justify-center border w-full sm:w-auto text-sm sm:text-base",
                   appearanceClasses.panel,
-                  appearanceClasses.surfaceHover,
                   themeClasses.accentBorder,
-                  focusRing
+                  appearanceClasses.muted
                 )}
               >
-                View projects
-                <ExternalLink size={16} />
-              </Link>
+                Projects: To be confirmed
+              </div>
             ) : null}
           </div>
         </motion.div>
@@ -220,7 +217,6 @@ function QuickLinks({
   const cards = [
     { title: "About", desc: "Story, values, and credentials.", href: "/about" },
     { title: "Experience", desc: "Timeline tailored to the current persona.", href: "/experience" },
-    ...(mode === "dev" ? [{ title: "Projects", desc: "Deep dives, repos, and tech stacks.", href: "/projects" }] : []),
     { title: "Services", desc: "Engagement models and offerings.", href: "/services" },
     ...(mode === "dev" ? [] : [{ title: "Contact", desc: "Let’s collaborate on what’s next.", href: "/contact" }]),
   ];
@@ -274,8 +270,6 @@ function Snapshot({
   focusRing: string;
 }) {
   const topExperience = experiences.filter((e) => e.category === mode)[0];
-  const topProjects = mode === "dev" ? projects.filter((p) => p.category === mode).slice(0, 2) : [];
-
   return (
     <section className="grid lg:grid-cols-[1.3fr_1fr] gap-6 items-start">
       <div className={clsx("p-6 rounded-3xl border space-y-4", appearanceClasses.card)}>
@@ -311,46 +305,13 @@ function Snapshot({
                 <span className="text-white font-mono text-xs">PRJ</span>
               </div>
               <div>
-                <p className={clsx("text-sm uppercase tracking-[0.2em]", appearanceClasses.muted)}>Highlighted Projects</p>
-                <h3 className={clsx("text-xl font-semibold", appearanceClasses.strong)}>Recent Work</h3>
+                <p className={clsx("text-sm uppercase tracking-[0.2em]", appearanceClasses.muted)}>Projects</p>
+                <h3 className={clsx("text-xl font-semibold", appearanceClasses.strong)}>To be confirmed</h3>
               </div>
             </div>
-            <div className="space-y-3">
-              {topProjects.map((project) => (
-                <Link key={project.title} href="/projects" className={focusRing}>
-                  <div
-                    className={clsx(
-                      "rounded-2xl border p-4 transition-all",
-                      appearanceClasses.subPanel,
-                      appearanceClasses.surfaceHover
-                    )}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <p className={clsx("font-semibold", appearanceClasses.strong)}>{project.title}</p>
-                        <p className={clsx("text-sm mt-1", appearanceClasses.muted)}>{project.desc}</p>
-                      </div>
-                      <ExternalLink size={16} className={themeClasses.accentText} />
-                    </div>
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {project.tech.map((tag) => (
-                        <span
-                          key={tag}
-                          className={clsx(
-                            "text-xs px-3 py-1 rounded-full border",
-                            themeClasses.accentBorder,
-                            themeClasses.accentText,
-                            appearanceClasses.panel
-                          )}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <p className={clsx("text-sm", appearanceClasses.muted)}>
+              Project highlights will be added once the selection is finalized.
+            </p>
           </div>
         ) : null}
 
